@@ -11,7 +11,7 @@ public class Student {
         System.out.println("Write student to add to system");
         this.studentName = input.nextLine();
         studentsList.add(this);
-
+        System.out.println("Student added");
     }
 
     public boolean bumpStudentCourseAmount() {

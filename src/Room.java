@@ -9,6 +9,7 @@ public class Room {
         System.out.println("Write room to add to system");
         this.roomName = input.nextLine();
         roomsList.add(this);
+        System.out.println("Room added");
     }
 
     public String getRoomName() {
