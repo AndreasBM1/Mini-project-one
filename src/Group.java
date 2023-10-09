@@ -44,4 +44,13 @@ public class Group {
         }
         System.out.println("Group doesn't exist");
     }
+
+    public static Group findGroup(String name) {
+        for (Group obj : groupsList) {
+            if (obj.groupName.equals(name)){
+                return obj;
+            }
+        }
+        return null;
+    }
 }

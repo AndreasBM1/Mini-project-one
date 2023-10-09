@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class BookingSystem {
     private static final Scanner Input = new Scanner(System.in);
     private static final String[] commands = {
-            "add student","add room","add group","add course","reservation",
+            "add student","add room","add group","add course","make reservation",
             "add student to course", "add student to group","room list","end"
     }; // This is a very incomplete list, but just make it as last thing
 
@@ -18,15 +18,15 @@ public class BookingSystem {
                 case "add room" -> new Room();
                 case "add group" -> new Group();
                 case "add course" -> new Course();
-                case "reservation" -> new Reservation();
+                case "make reservation" -> new Reservation();
                 case "add student to course" -> addStudentToCourse();
                 case "add student to group" -> addStudentToGroup();
                 case "room list" -> Room.printRooms();
-                case "End" -> {
+                case "end" -> {
                     System.out.println("System will now close");
                     ProgramRunning = false;
                 }
-                default -> System.out.println("Something went wrong, try again (System is case sensitive!)");
+                default -> System.out.println("Illegal input, this incident will be reported! (System is case sensitive!)");
             }
 
         }
