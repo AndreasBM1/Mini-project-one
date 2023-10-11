@@ -11,6 +11,12 @@ public class Course {
         Scanner input = new Scanner(System.in);
         System.out.println("Write course to add to system");
         this.courseName = input.nextLine();
+        for (Course course : coursesList) {
+            if (course.getCourseName().equals(this.courseName)) {
+                System.out.println("Course already exists");
+                return;
+            }
+        }
         coursesList.add(this);
         System.out.println("Course added");
     }
@@ -32,17 +38,16 @@ public class Course {
 
     public static void addStudentToCourse(String studentName, String courseName){
         Student tempStudent = Student.findStudentByName(studentName);
-        if (tempStudent == null) {
-            System.out.println("Student does not exist");
-            return;
-        }
-
         for (Course obj : coursesList) {
             if (obj.courseName.equals(courseName)){
                 if(!obj.isStudentInCourse(tempStudent)) {
                     if (tempStudent.bumpStudentCourseAmount()) {
                         obj.courseStudents.add(tempStudent);
+                        tempStudent.getStudentCourses().add(obj);
                         System.out.println("Student added to course");
+                        return;
+                    } else {
+                        System.out.println("Student has reached maximum courses");
                         return;
                     }
                 } else {
@@ -61,5 +66,16 @@ public class Course {
             }
         }
         return null;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public static void printCourses() {
+        System.out.println("List of all registered courses: ");
+        for (Course obj : coursesList) {
+            System.out.println(" - " + obj.getCourseName());
+        }
     }
 }

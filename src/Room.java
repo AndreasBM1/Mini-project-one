@@ -27,8 +27,9 @@ public class Room {
     }
 
     public static void printRooms() {
+        System.out.println("List of all registered rooms: ");
         for (Room obj : roomsList) {
-            System.out.println(obj.getRoomName());
+            System.out.println(" - " + obj.getRoomName());
         }
     }
 

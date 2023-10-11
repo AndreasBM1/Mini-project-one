@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class Student {
     private String studentName;
     private int studentCourseAmount = 0;
+    private ArrayList<Course> studentCourses = new ArrayList<>();
     private static ArrayList<Student> studentsList = new ArrayList<>();
 
     public Student (){
@@ -29,5 +30,20 @@ public class Student {
             }
         }
         return null;
+    }
+
+    public ArrayList<Course> getStudentCourses() {
+        return studentCourses;
+    }
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public static void printStudents() {
+        System.out.println("List of all registered students: ");
+        for (Student obj : studentsList) {
+            System.out.println(" - " + obj.getStudentName());
+        }
     }
 }

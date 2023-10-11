@@ -49,16 +49,24 @@ public class Group {
             System.out.println("Student does not exist");
             return;
         }
+
+        if (!tempStudent.getStudentCourses().contains(tempCourse)) {
+            System.out.println("Student is not in the group's course. ");
+            return;
+        }
+
         for (Group obj : groupsList) {
             if (obj.groupName.equals(group) && !obj.isStudentInGroup(tempStudent)) {
                 obj.groupMembers.add(tempStudent);
                 System.out.println("Student added to group");
-            } else {
-                System.out.println("Student already in group");
+                return;
             }
-            return;
         }
-        System.out.println("Group doesn't exist");
+        if (groupsList.contains(group)){
+            System.out.println("Student already in group");
+        } else{
+            System.out.println("Group doesn't exist");
+        }
     }
 
     public static Group findGroup(String name) {
@@ -68,5 +76,12 @@ public class Group {
             }
         }
         return null;
+    }
+
+    public static void printGroups() {
+        System.out.println("List of all registered groups: ");
+        for (Group obj : groupsList) {
+            System.out.println(" - " + obj.getGroupName());
+        }
     }
 }
