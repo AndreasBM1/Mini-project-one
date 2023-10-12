@@ -1,7 +1,8 @@
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-import java.time.*;
 
 public class Reservation {
     private static final ArrayList<Integer> validDurations = new ArrayList<>(Arrays.asList(30,60,90,120));
@@ -58,7 +59,10 @@ public class Reservation {
     }
 
     public boolean isOverlapping(Reservation reservation) {
-        return reservation.getReservationDayAndTime().isAfter(this.getReservationDayAndTime()) && reservation.getReservationDayAndTime().isBefore(this.getReservationEndTime()) || (this.getReservationDayAndTime().isAfter(reservation.getReservationDayAndTime()) && this.getReservationDayAndTime().isBefore(reservation.getReservationEndTime()));
+        return reservation.getReservationDayAndTime().isAfter(this.getReservationDayAndTime()) &&
+                reservation.getReservationDayAndTime().isBefore(this.getReservationEndTime()) ||
+                (this.getReservationDayAndTime().isAfter(reservation.getReservationDayAndTime()) &&
+                        this.getReservationDayAndTime().isBefore(reservation.getReservationEndTime()));
     }
 
     private void addReservationToSystem(){  //One could consider making this smaller
@@ -109,6 +113,7 @@ public class Reservation {
         }
         if (overlappingReservations.isEmpty()) {
             Room.findRoom(this.roomName).getRoomReservations().add(this);
+            this.reservationGroup.setReservationPriority(reservationGroup.getReservationPriority()+this.reservationDuration);
             System.out.println("The reservation has been completed");
         } else {
             for (Reservation res : overlappingReservations) {
@@ -121,6 +126,7 @@ public class Reservation {
                 Room.findRoom(getRoomName()).getRoomReservations().remove(res); // potentially stop the find() and just do it once at the top
             }
             Room.findRoom(this.roomName).getRoomReservations().add(this);
+            this.reservationGroup.setReservationPriority(reservationGroup.getReservationPriority()+this.reservationDuration);
             System.out.println("The reservation has been completed and less important groups have been yeeted from the system");
         }
     }

@@ -2,10 +2,6 @@ import java.util.Scanner;
 
 public class BookingSystem {
     private static final Scanner Input = new Scanner(System.in);
-    private static final String[] commands = {
-            "add student","add room","add group","add course","make reservation",
-            "add student to course", "add student to group","room list","course list","student list","exit"
-    };
 
     public static void main(String[] args) {
         boolean ProgramRunning = true;
@@ -24,6 +20,7 @@ public class BookingSystem {
                 case "add student to group" -> addStudentToGroup();
                 case "room list" -> Room.printRooms();
                 case "course list" -> Course.printCourses();
+                case "group list" -> Group.printGroups();
                 case "student list" -> Student.printStudents();
                 case "student lust" -> System.out.println("You're thinking with your nether regions, not your brain");
                 case "exit" -> {
@@ -37,6 +34,10 @@ public class BookingSystem {
     }
 
     private static void help(){
+        final String[] commands = {
+                "add student","add room","add group","add course","make reservation",
+                "add student to course", "add student to group","room list","course list", "group list", "student list","exit"
+        };
         for (String string : commands) System.out.println(">" + string);
     }
     private static void addStudentToCourse() {
