@@ -22,7 +22,6 @@ public class BookingSystem {
                 case "course list" -> Course.printCourses();
                 case "group list" -> Group.printGroups();
                 case "student list" -> Student.printStudents();
-                case "student lust" -> System.out.println("You're thinking with your nether regions, not your brain");
                 case "exit" -> {
                     System.out.println("System will now close");
                     ProgramRunning = false;
