@@ -1,9 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-
-public class Group {
+public class Group implements Comparable<Group>{
     private String groupName;
-    private int reservationPriority = 0;
+    private String reservationPriority = "0";
     private static ArrayList<Group> groupsList = new ArrayList<>();
     private ArrayList<Student> groupMembers = new ArrayList<>();
 
@@ -16,11 +15,15 @@ public class Group {
         Course.addGroup(this, input.nextLine());
     }
 
-    public int getReservationPriority() {
+    @Override public int compareTo(Group group){
+        return this.reservationPriority.compareTo(group.reservationPriority);
+    }
+
+    public String getReservationPriority() {
         return reservationPriority;
     }
 
-    public void setReservationPriority(int reservationPriority) {
+    public void setReservationPriority(String reservationPriority) {
         this.reservationPriority = reservationPriority;
     }
 
@@ -33,10 +36,14 @@ public class Group {
     }
 
     public boolean hasPriority(Group group) {
-        if (this.reservationPriority <= 240 && group.getReservationPriority() > 240) return true;
-        if (this.reservationPriority < group.getReservationPriority()) return true;
-        if (this.reservationPriority == group.getReservationPriority() && this.groupMembers.size() > group.groupMembers.size()) return true;
-        return false;
+        //if (this.reservationPriority <= 240 && group.getReservationPriority() > 240) return true;
+        //if (this.reservationPriority < group.getReservationPriority()) return true;
+        //if (this.reservationPriority == group.getReservationPriority() && this.groupMembers.size() > group.groupMembers.size()) return true;
+        // Kept here if I made seriously bad code and need to revert :O
+        if (compareTo(group) < 0) return true;
+        if (compareTo(group) == 0 && this.groupMembers.size() > group.groupMembers.size()) return true;
+        if (compareTo(group) > 0) return false;
+        return false; //Need to return something in the end, maybe just collapse above if statement?
     }
 
     public static void addStudentToGroup(String course, String student, String group) {
