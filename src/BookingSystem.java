@@ -22,6 +22,7 @@ public class BookingSystem {
                 case "course list" -> Course.printCourses();
                 case "group list" -> Group.printGroups();
                 case "student list" -> Student.printStudents();
+                case "reservation overview" -> ReservationOverview.printReservationOverview();
                 case "exit" -> {
                     System.out.println("System will now close");
                     ProgramRunning = false;
@@ -35,7 +36,8 @@ public class BookingSystem {
     private static void help(){
         final String[] commands = {
                 "add student","add room","add group","add course","make reservation",
-                "add student to course", "add student to group","room list","course list", "group list", "student list","exit"
+                "add student to course", "add student to group", "reservation overview",
+                "room list","course list", "group list", "student list","exit"
         };
         for (String string : commands) System.out.println(">" + string);
     }

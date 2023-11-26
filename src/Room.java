@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Room {
     private String roomName;
     private static ArrayList<Room> roomsList = new ArrayList<>();
-    private ArrayList<Reservation> roomReservations = new ArrayList<>();
+    private static ArrayList<Reservation> roomReservations = new ArrayList<>();
 
     public Room (){
         Scanner input = new Scanner(System.in);
@@ -34,7 +34,7 @@ public class Room {
         }
     }
 
-    public ArrayList<Reservation> getRoomReservations() {
+    public static ArrayList<Reservation> getRoomReservations() {
         return roomReservations;
     }
 }

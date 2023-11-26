@@ -22,10 +22,6 @@ public class Reservation {
         return reservationEndTime;
     }
 
-    public int getReservationDuration() {
-        return reservationDuration;
-    }
-
     public Group getReservationGroup() {
         return reservationGroup;
     }

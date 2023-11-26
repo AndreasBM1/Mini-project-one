@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class Group implements Comparable<Group>{
     private String groupName;
-    private String reservationPriority = "0";
+    private int reservationPriority = 0;
     private static ArrayList<Group> groupsList = new ArrayList<>();
     private ArrayList<Student> groupMembers = new ArrayList<>();
 
@@ -16,14 +16,17 @@ public class Group implements Comparable<Group>{
     }
 
     @Override public int compareTo(Group group){
-        return this.reservationPriority.compareTo(group.reservationPriority);
+        String resPriorityGroupA = Integer.toString(getReservationPriority());
+        String resPriorityGroupB = Integer.toString(group.reservationPriority);
+        return resPriorityGroupA.compareTo(resPriorityGroupB);
+        //Can't compare ints so have to make them Strings, there must be a better way though D:
     }
 
-    public String getReservationPriority() {
+    public int getReservationPriority() {
         return reservationPriority;
     }
 
-    public void setReservationPriority(String reservationPriority) {
+    public void setReservationPriority(int reservationPriority) {
         this.reservationPriority = reservationPriority;
     }
 
