@@ -1,4 +1,5 @@
 public class HasPriorityTest {
+    // ********** TASK TWO ***********
     public static void main(String[] args) {
         new Course();
         Group a = new Group();

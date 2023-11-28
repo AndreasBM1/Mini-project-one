@@ -22,7 +22,7 @@ public class BookingSystem {
                 case "course list" -> Course.printCourses();
                 case "group list" -> Group.printGroups();
                 case "student list" -> Student.printStudents();
-                case "reservation overview" -> ReservationOverview.printReservationOverview();
+                case "reservation overview" -> Room.printRoomReservations();
                 case "exit" -> {
                     System.out.println("System will now close");
                     ProgramRunning = false;

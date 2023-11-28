@@ -37,4 +37,12 @@ public class Room {
     public static ArrayList<Reservation> getRoomReservations() {
         return roomReservations;
     }
+
+    // ********** TASK THREE ***********
+    public static void printRoomReservations() {
+        System.out.println("List of all registered groups: ");
+        for (Reservation obj : roomReservations) {
+            System.out.println(" - " + getRoomReservations()); //This prints some wierd stuff :/
+        }
+    }
 }

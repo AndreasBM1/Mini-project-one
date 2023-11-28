@@ -15,13 +15,6 @@ public class Group implements Comparable<Group>{
         Course.addGroup(this, input.nextLine());
     }
 
-    @Override public int compareTo(Group group){
-        String resPriorityGroupA = Integer.toString(getReservationPriority());
-        String resPriorityGroupB = Integer.toString(group.reservationPriority);
-        return resPriorityGroupA.compareTo(resPriorityGroupB);
-        //Can't compare ints so have to make them Strings, there must be a better way though D:
-    }
-
     public int getReservationPriority() {
         return reservationPriority;
     }
@@ -38,6 +31,7 @@ public class Group implements Comparable<Group>{
         return this.groupMembers.contains(student);
     }
 
+    // ********** TASK ONE ***********
     public boolean hasPriority(Group group) {
         //if (this.reservationPriority <= 240 && group.getReservationPriority() > 240) return true;
         //if (this.reservationPriority < group.getReservationPriority()) return true;
@@ -46,7 +40,13 @@ public class Group implements Comparable<Group>{
         if (compareTo(group) < 0) return true;
         if (compareTo(group) == 0 && this.groupMembers.size() > group.groupMembers.size()) return true;
         if (compareTo(group) > 0) return false;
-        return false; //Need to return something in the end, maybe just collapse above if statement?
+        return false;
+    }
+    @Override public int compareTo(Group group){
+        String resPriorityGroupA = Integer.toString(getReservationPriority());
+        String resPriorityGroupB = Integer.toString(group.reservationPriority);
+        return resPriorityGroupA.compareTo(resPriorityGroupB);
+        //Can't compare ints so have to make them Strings explicitly, there must be a better way though D:
     }
 
     public static void addStudentToGroup(String course, String student, String group) {
