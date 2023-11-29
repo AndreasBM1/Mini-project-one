@@ -11,8 +11,8 @@ public class Reservation {
     private LocalDateTime reservationDayAndTime;
     private LocalDateTime reservationEndTime;
     private int reservationDuration;
-    private Group reservationGroup;
-    private String roomName; //possibly not needed
+    private String reservationGroup;
+    private String roomName;
 
     public LocalDateTime getReservationDayAndTime() {
         return reservationDayAndTime;
@@ -22,7 +22,7 @@ public class Reservation {
         return reservationEndTime;
     }
 
-    public Group getReservationGroup() {
+    public String getReservationGroup() {
         return reservationGroup;
     }
 
@@ -42,7 +42,7 @@ public class Reservation {
         this.reservationDuration = reservationDuration;
     }
 
-    public void setReservationGroup(Group group) {
+    public void setReservationGroup(String group) {
         this.reservationGroup = group;
     }
 
@@ -52,6 +52,15 @@ public class Reservation {
 
     public Reservation (){
         this.addReservationToSystem();
+    }
+
+    public Reservation (String groupName, LocalDateTime startTime, LocalDateTime endTime, int reservationDuration, String roomName) {
+        this.reservationGroup = groupName;
+        this.roomName = roomName;
+        this.reservationDuration = reservationDuration;
+        this.reservationDayAndTime = startTime;
+        this.reservationEndTime = endTime;
+        Room.addReservationToList(this);
     }
 
     public boolean isOverlapping(Reservation reservation) {
@@ -64,7 +73,7 @@ public class Reservation {
     private void addReservationToSystem(){  //One could consider making this smaller
         Scanner Input = new Scanner(System.in);
         System.out.println("What group?");
-        setReservationGroup(Group.findGroup(Input.nextLine()));
+        setReservationGroup(Input.nextLine());
         if (reservationGroup == null) {
             System.out.println("Group does not exist");
             return;
@@ -100,6 +109,7 @@ public class Reservation {
             return;
         }
 
+        Group tempGroup = Group.findGroup(this.reservationGroup);
         ArrayList<Reservation> overlappingReservations = new ArrayList<>();
         // Consider handling a potential null here or something ;3
         for(Reservation res : Room.getRoomReservations()) {
@@ -108,12 +118,12 @@ public class Reservation {
             }
         }
         if (overlappingReservations.isEmpty()) {
-            Room.getRoomReservations().add(this);
-            this.reservationGroup.setReservationPriority(reservationGroup.getReservationPriority()+this.reservationDuration);
+            Room.addReservationToList(this);
+            tempGroup.setReservationPriority(tempGroup.getReservationPriority()+this.reservationDuration);
             System.out.println("The reservation has been completed");
         } else {
             for (Reservation res : overlappingReservations) {
-                if (!this.reservationGroup.hasPriority(res.getReservationGroup())) {
+                if (tempGroup.hasPriority(Group.findGroup(res.getReservationGroup()))) {
                     System.out.println("Time slot occupied");
                     return;
                 }
@@ -121,8 +131,8 @@ public class Reservation {
             for (Reservation res : overlappingReservations) {
                 Room.getRoomReservations().remove(res); // potentially stop the find() and just do it once at the top
             }
-            Room.getRoomReservations().add(this);
-            this.reservationGroup.setReservationPriority(reservationGroup.getReservationPriority()+this.reservationDuration);
+            Room.addReservationToList(this);
+            tempGroup.setReservationPriority(tempGroup.getReservationPriority()+this.reservationDuration);
             System.out.println("The reservation has been completed and less important groups have been yeeted from the system");
         }
     }

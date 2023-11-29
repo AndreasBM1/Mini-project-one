@@ -4,8 +4,8 @@ import java.util.Scanner;
 public class Course {
     private String courseName;
     private static ArrayList<Course> coursesList = new ArrayList<>();
-    private ArrayList<Group> courseGroups = new ArrayList<>();
-    private ArrayList<Student> courseStudents = new ArrayList<>();
+    private ArrayList<String> courseGroups = new ArrayList<>();
+    private ArrayList<String> courseStudents = new ArrayList<>();
 
     public Course (){
         Scanner input = new Scanner(System.in);
@@ -21,7 +21,18 @@ public class Course {
         System.out.println("Course added");
     }
 
-    public static void addGroup(Group g, String s){
+
+    // Figure out what goes here :)
+    public Course (String name, ArrayList<String> groups, ArrayList<String> students) {
+        this.courseName = name;
+        this.courseGroups = groups;
+        this.courseStudents = students;
+        coursesList.add(this);
+    }
+
+
+
+    public static void addGroup(String g, String s){
         for (Course obj : coursesList) {
             if (obj.courseName.equals(s)){
                 obj.courseGroups.add(g);
@@ -32,18 +43,18 @@ public class Course {
         System.out.println("Course doesn't exist");
     }
 
-    public boolean isStudentInCourse(Student student) {
-        return this.courseStudents.contains(student);
+    public boolean isStudentInCourse(String name) {
+        return this.courseStudents.contains(name);
     }
 
     public static void addStudentToCourse(String studentName, String courseName){
         Student tempStudent = Student.findStudentByName(studentName);
         for (Course obj : coursesList) {
             if (obj.courseName.equals(courseName)){
-                if(!obj.isStudentInCourse(tempStudent)) {
-                    if (tempStudent.bumpStudentCourseAmount()) {
-                        obj.courseStudents.add(tempStudent);
-                        tempStudent.getStudentCourses().add(obj);
+                if(!obj.isStudentInCourse(studentName)) {
+                    if (tempStudent.bumpStudentCourseAmount()) { //Consider handling this error
+                        obj.courseStudents.add(studentName);
+                        tempStudent.getStudentCourses().add(courseName);
                         System.out.println("Student added to course");
                         return;
                     } else {
@@ -75,7 +86,7 @@ public class Course {
     public static void printCourses() {
         System.out.println("List of all registered courses: ");
         for (Course obj : coursesList) {
-            System.out.println(" - " + obj.getCourseName());
+            System.out.println(" - " + obj.getCourseName() + " has groups --> " + obj.courseGroups + " and has students --> \n " + obj.courseStudents);
         }
     }
 }

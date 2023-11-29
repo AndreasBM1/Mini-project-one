@@ -1,10 +1,11 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Group implements Comparable<Group>{
     private String groupName;
-    private int reservationPriority = 0;
+    private Integer reservationPriority = null;
     private static ArrayList<Group> groupsList = new ArrayList<>();
-    private ArrayList<Student> groupMembers = new ArrayList<>();
+    private ArrayList<String> groupMembers = new ArrayList<>();
 
     public Group() {
         Scanner input = new Scanner(System.in);
@@ -12,7 +13,16 @@ public class Group implements Comparable<Group>{
         this.groupName = input.nextLine();
         groupsList.add(this);
         System.out.println("What course?");
-        Course.addGroup(this, input.nextLine());
+        Course.addGroup(this.groupName, input.nextLine());
+    }
+
+    public Group(String name, int reservedTime, String courseName, ArrayList<String> students) {
+        this.groupName = name;
+        this.reservationPriority = reservedTime;
+        this.groupMembers = students;
+
+        Course.addGroup(this.groupName,courseName);
+        groupsList.add(this);
     }
 
     public int getReservationPriority() {
@@ -31,6 +41,11 @@ public class Group implements Comparable<Group>{
         return this.groupMembers.contains(student);
     }
 
+    @Override
+    public int compareTo(Group group){
+        return this.getReservationPriority() - group.getReservationPriority();
+    }
+
     // ********** TASK ONE ***********
     public boolean hasPriority(Group group) {
         //if (this.reservationPriority <= 240 && group.getReservationPriority() > 240) return true;
@@ -42,12 +57,8 @@ public class Group implements Comparable<Group>{
         if (compareTo(group) > 0) return false;
         return false;
     }
-    @Override public int compareTo(Group group){
-        String resPriorityGroupA = Integer.toString(getReservationPriority());
-        String resPriorityGroupB = Integer.toString(group.reservationPriority);
-        return resPriorityGroupA.compareTo(resPriorityGroupB);
-        //Can't compare ints so have to make them Strings explicitly, there must be a better way though D:
-    }
+
+
 
     public static void addStudentToGroup(String course, String student, String group) {
         Course tempCourse = Course.findCourseByName(course);
@@ -68,7 +79,7 @@ public class Group implements Comparable<Group>{
 
         for (Group obj : groupsList) {
             if (obj.groupName.equals(group) && !obj.isStudentInGroup(tempStudent)) {
-                obj.groupMembers.add(tempStudent);
+                obj.groupMembers.add(student);
                 System.out.println("Student added to group");
                 return;
             }
@@ -89,10 +100,14 @@ public class Group implements Comparable<Group>{
         return null;
     }
 
+    public ArrayList<String> getGroupMembers() {
+        return groupMembers;
+    }
+
     public static void printGroups() {
         System.out.println("List of all registered groups: ");
         for (Group obj : groupsList) {
-            System.out.println(" - " + obj.getGroupName());
+            System.out.println(" - " + obj.getGroupName() + " has members --> " + obj.getGroupMembers());
         }
     }
 }

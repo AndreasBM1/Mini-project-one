@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Student {
     private String studentName;
     private int studentCourseAmount = 0;
-    private ArrayList<Course> studentCourses = new ArrayList<>();
+    private ArrayList<String> studentCourses = new ArrayList<>();
     private static ArrayList<Student> studentsList = new ArrayList<>();
 
     public Student (){
@@ -13,6 +13,13 @@ public class Student {
         this.studentName = input.nextLine();
         studentsList.add(this);
         System.out.println("Student added");
+    }
+
+    public Student (String name, ArrayList<String> courses) {
+        this.studentName = name;
+        this.studentCourses = courses;
+        this.studentCourseAmount = courses.size();
+        studentsList.add(this);
     }
 
     public boolean bumpStudentCourseAmount() {
@@ -32,7 +39,7 @@ public class Student {
         return null;
     }
 
-    public ArrayList<Course> getStudentCourses() {
+    public ArrayList<String> getStudentCourses() {
         return studentCourses;
     }
 
@@ -43,7 +50,7 @@ public class Student {
     public static void printStudents() {
         System.out.println("List of all registered students: ");
         for (Student obj : studentsList) {
-            System.out.println(" - " + obj.getStudentName());
+            System.out.println(" - " + obj.getStudentName() + " is in " + obj.studentCourseAmount + " of courses --> " + obj.getStudentCourses());
         }
     }
 }

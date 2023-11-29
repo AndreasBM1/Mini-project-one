@@ -14,6 +14,11 @@ public class Room {
         System.out.println("Room added");
     }
 
+    public Room (String roomName){
+        this.roomName = roomName;
+        roomsList.add(this);
+    }
+
     public String getRoomName() {
         return roomName;
     }
@@ -38,11 +43,23 @@ public class Room {
         return roomReservations;
     }
 
-    // ********** TASK THREE ***********
+    public static void addReservationToList(Reservation res) {
+        Room.roomReservations.add(res);
+    }
+
+    // ********** TASK FIVE ***********
     public static void printRoomReservations() {
-        System.out.println("List of all registered groups: ");
-        for (Reservation obj : getRoomReservations()) {
-            System.out.println(" - " + obj.getReservationGroup().getGroupName() + "has booked: " + obj.getRoomName() + " in the time interval: " + obj.getReservationDayAndTime() + " to " + obj.getReservationEndTime()); //This prints some wierd stuff :/
+        System.out.println("List of all registered reservations: ");
+        for (Reservation obj : roomReservations) {
+            System.out.println(" - " + obj.getReservationGroup() + " has booked: " + obj.getRoomName() + " in the time interval: " + obj.getReservationDayAndTime() + " to " + obj.getReservationEndTime()); //This prints nothing :/
+        }
+    }
+
+    public static void printTodaysRoomReservations() {
+        
+        System.out.println("List of all registered reservations: ");
+        for (Reservation obj : roomReservations) {
+            System.out.println(" - " + obj.getReservationGroup() + " has booked: " + obj.getRoomName() + " in the time interval: " + obj.getReservationDayAndTime() + " to " + obj.getReservationEndTime()); //This prints nothing :/
         }
     }
 }
