@@ -102,13 +102,13 @@ public class Reservation {
 
         ArrayList<Reservation> overlappingReservations = new ArrayList<>();
         // Consider handling a potential null here or something ;3
-        for(Reservation res : Room.findRoom(getRoomName()).getRoomReservations()) {
+        for(Reservation res : Room.getRoomReservations()) {
             if (this.isOverlapping(res)) {
                 overlappingReservations.add(res);
             }
         }
         if (overlappingReservations.isEmpty()) {
-            Room.findRoom(this.roomName).getRoomReservations().add(this);
+            Room.getRoomReservations().add(this);
             this.reservationGroup.setReservationPriority(reservationGroup.getReservationPriority()+this.reservationDuration);
             System.out.println("The reservation has been completed");
         } else {
@@ -119,9 +119,9 @@ public class Reservation {
                 }
             }
             for (Reservation res : overlappingReservations) {
-                Room.findRoom(getRoomName()).getRoomReservations().remove(res); // potentially stop the find() and just do it once at the top
+                Room.getRoomReservations().remove(res); // potentially stop the find() and just do it once at the top
             }
-            Room.findRoom(this.roomName).getRoomReservations().add(this);
+            Room.getRoomReservations().add(this);
             this.reservationGroup.setReservationPriority(reservationGroup.getReservationPriority()+this.reservationDuration);
             System.out.println("The reservation has been completed and less important groups have been yeeted from the system");
         }

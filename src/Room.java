@@ -41,8 +41,8 @@ public class Room {
     // ********** TASK THREE ***********
     public static void printRoomReservations() {
         System.out.println("List of all registered groups: ");
-        for (Reservation obj : roomReservations) {
-            System.out.println(" - " + getRoomReservations()); //This prints some wierd stuff :/
+        for (Reservation obj : getRoomReservations()) {
+            System.out.println(" - " + obj.getReservationGroup().getGroupName() + "has booked: " + obj.getRoomName() + " in the time interval: " + obj.getReservationDayAndTime() + " to " + obj.getReservationEndTime()); //This prints some wierd stuff :/
         }
     }
 }
